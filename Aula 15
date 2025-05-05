@@ -89,12 +89,8 @@ const hadlePrestige = () => {
         <Text style={styles.buttonText}>Upgrade (+1 por clique) - 10 cookies</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.autoClickerButton} onPress={buyAutoClicker}>
-        <Text style={styles.buttonText}>Comprar Auto-Clicker - 50 cookies</Text>
-      </TouchableOpacity>
-
- <TouchableOpacity style={styles.prestige.autoClickerButton} onPress={handlePrestige}>
-        <Text style={styles.buttonText}>Comprar Auto-Clicker - 1000 cookies</Text>
+ <TouchableOpacity style={styles.PrestigeButton} onPress={handlePrestige}>
+        <Text style={styles.buttonText}>Comprar Prestígio - 1000 cookies</Text>
       </TouchableOpacity>
     </View>
   );
