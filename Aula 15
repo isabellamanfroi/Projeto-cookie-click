@@ -6,6 +6,8 @@ export default function App() {
   const [cookies, setCookies] = useState(0);
   const [clickPower, setClickPower] = useState(1);
   const [autoClickers, setAutoClickers] = useState(0);
+const [prestige, setPrestige] = useState;
+const [prestigeMultiplier, setPrestigeMultiplier] = useState(0);
 
   // Carrega os dados salvos ao iniciar o app
   useEffect(() => {
@@ -14,9 +16,15 @@ export default function App() {
       const savedClickPower = await AsyncStorage.getItem('clickPower');
       const savedAutoClickers = await AsyncStorage.getItem('autoClickers');
 
+const savedPrestige = await AsyncStorage.getItem('prestigeMultiplier');
+
       if (savedCookies !== null) setCookies(parseInt(savedCookies));
       if (savedClickPower !== null) setClickPower(parseInt(savedClickPower));
       if (savedAutoClickers !== null) setAutoClickers(parseInt(savedAutoClickers));
+
+// puxa o prestige do AsyncStorage
+if (savedPrestige !== null) setPrestigeMultiplier(parseInt(savedPrestige));
+
     };
     loadData();
   }, []);
@@ -30,7 +38,20 @@ export default function App() {
 
   const handleClick = () => {
     setCookies(cookies + clickPower);
+// Verificar o valor anterior e adiciona o autoClick + Multipicador de prestigio
+    setCookies( prev + autoClickers * prestigeMultiplier);
   };
+
+// função comprar prestígio
+const hadlePrestige = () => {
+ if (cookies >= 100)(
+  setCookies(0);
+  setClickPower(1);
+  setAutoClickers(0);
+  setPrestigeMultiplier(prestigeMultiplier + 1);
+ }
+};
+
 
   const buyUpgrade = () => {
     if (cookies >= 10) {
@@ -58,6 +79,7 @@ export default function App() {
       <Text style={styles.text}>Cookies: {cookies}</Text>
       <Text style={styles.text}>Poder de Clique: {clickPower}</Text>
       <Text style={styles.text}>Auto-Clickers: {autoClickers}</Text>
+      <Text style={styles.text}>Prestigío: x{prestigeMultiplier}</Text>
 
       <TouchableOpacity style={styles.button} onPress={handleClick}>
         <Text style={styles.buttonText}>Clique para ganhar cookies!</Text>
@@ -69,6 +91,10 @@ export default function App() {
 
       <TouchableOpacity style={styles.autoClickerButton} onPress={buyAutoClicker}>
         <Text style={styles.buttonText}>Comprar Auto-Clicker - 50 cookies</Text>
+      </TouchableOpacity>
+
+ <TouchableOpacity style={styles.prestige.autoClickerButton} onPress={handlePrestige}>
+        <Text style={styles.buttonText}>Comprar Auto-Clicker - 1000 cookies</Text>
       </TouchableOpacity>
     </View>
   );
